@@ -1,0 +1,178 @@
+.checkout-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 32px 38px 28px 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.checkout-container h2 {
+  text-align: center;
+  margin-bottom: 18px;
+  color: #222;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.checkout-container h3 {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  color: #444;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.checkout-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.checkout-container input,
+.checkout-container select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 1em;
+  background: #f7f7f7;
+  transition: border 0.2s;
+}
+
+.checkout-container input:focus,
+.checkout-container select:focus {
+  border-color: #7c3aed;
+  outline: none;
+  background: #fff;
+}
+
+.checkout-container button[type="submit"] {
+  margin-top: 18px;
+  padding: 12px 0;
+  background: linear-gradient(90deg, #7c3aed 60%, #4f46e5 100%);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(124,58,237,0.08);
+}
+
+.checkout-container button[type="submit"]:hover {
+  background: linear-gradient(90deg, #4f46e5 60%, #7c3aed 100%);
+  box-shadow: 0 4px 16px rgba(124,58,237,0.13);
+}
+
+.riepilogo-prodotti {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 18px;
+  font-size: 1em;
+  background: #f8f8fc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(124,58,237,0.04);
+}
+
+.riepilogo-prodotti th, .riepilogo-prodotti td {
+  padding: 12px 8px;
+  text-align: left;
+}
+
+.riepilogo-prodotti th {
+  background: #ece9f9;
+  font-weight: 700;
+  color: #4f46e5;
+  border-bottom: 2px solid #d1d5db;
+}
+
+.riepilogo-prodotti td {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.riepilogo-prodotti tr:last-child td {
+  border-bottom: none;
+}
+
+.riepilogo-prodotti tfoot td {
+  background: #f3f0fa;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #222;
+  border-bottom: none;
+}
+
+.riepilogo-prodotti img {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  background: #fafafa;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
+
+button,
+.checkout-container button,
+.button-group button {
+  background: #356faa;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 0;
+  font-size: 1.05em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.09s;
+  box-shadow: 0 2px 8px rgba(185,28,28,0.08);
+  margin: 0.3em 0.5em 0.3em 0;
+  outline: none;
+  min-width: 170px;
+  display: inline-block;
+}
+
+button:hover,
+.checkout-container button:hover,
+.button-group button:hover,
+button:focus,
+.checkout-container button:focus,
+.button-group button:focus {
+  background: #2a3b4c;
+  box-shadow: 0 4px 16px rgba(185,28,28,0.13);
+  transform: translateY(-2px) scale(1.03);
+}
+
+button:active,
+.checkout-container button:active,
+.button-group button:active {
+  background: #2a3b4c;
+  transform: scale(0.98);
+}
+
+button[disabled],
+.checkout-container button[disabled],
+.button-group button[disabled] {
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+

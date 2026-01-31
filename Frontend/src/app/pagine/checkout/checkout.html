@@ -1,0 +1,107 @@
+
+<section class="checkout-container">
+    <h2>Riepilogo ordine</h2>
+  <table class="riepilogo-prodotti" *ngIf="carrello.length > 0">
+    <thead>
+      <tr>
+        <th>Prodotto</th>
+        <th>Immagine</th>
+        <th>Quantità</th>
+        <th>Prezzo</th>
+        <th>Subtotale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of carrello">
+        <td>{{item.nome}}</td>
+        <td>
+          <img [src]="'http://localhost:3000/images/prodotti/' + item.image_url" alt="{{item.nome}}" style="width:48px; height:48px; object-fit:cover; border-radius:6px;">
+        </td>
+        <td>{{item.quantita}}</td>
+       <td>€{{ item.prezzoFinale !== undefined ? item.prezzoFinale : item.prezzo }}</td>
+       <td>€{{ (item.prezzoFinale !== undefined ? item.prezzoFinale : item.prezzo) * item.quantita }}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" style="text-align:right"><b>Totale:</b></td>
+        <td><b>€{{totale}}</b></td>
+      </tr>
+    </tfoot>
+  </table>
+<form (ngSubmit)="onCheckout()">
+  <h3>Dati di spedizione</h3>
+<div *ngIf="indirizzi && indirizzi.length > 0">
+    <label for="indirizzoSelezionato">Scegli indirizzo:</label>
+    <select [(ngModel)]="indirizzoSelezionato" name="indirizzoSelezionato" required (ngModelChange)="aggiornaCampiIndirizzo()">
+      <option *ngFor="let ind of indirizzi" [ngValue]="ind"> {{ind.nome_destinatario}}, {{ind.indirizzo}}, {{ind.citta}}, {{ind.cap}}, {{ind.paese}}, {{ind.telefono}}</option>
+    </select>
+    <div class="button-group">
+      <button type="button" (click)="mostraFormAggiunta = true">Aggiungi indirizzo</button>
+    </div>
+  </div>
+
+  <!-- Se non ci sono indirizzi, mostra direttamente il form di aggiunta -->
+  <div *ngIf="indirizzi.length === 0 || mostraFormAggiunta">
+    <input type="text" placeholder="Destinatario" [(ngModel)]="destinatario" name="destinatario" required>
+    <input type="text" placeholder="Indirizzo" [(ngModel)]="indirizzo" name="indirizzo" required>
+    <input type="text" placeholder="Città" [(ngModel)]="citta" name="citta" required>
+    <input type="text" placeholder="CAP" [(ngModel)]="cap" name="cap" required>
+    <input type="text" placeholder="Paese" [(ngModel)]="paese" name="paese" required>
+    <input type="text" placeholder="Telefono" [(ngModel)]="telefono" name="telefono" required>
+    <div class="button-group">
+      <button type="button" (click)="salvaNuovoIndirizzo()">Salva indirizzo</button>
+      <button type="button" (click)="mostraFormAggiunta = false" *ngIf="indirizzi.length > 0">Annulla</button>
+    </div>
+  </div>
+
+  <h3>Dati di pagamento</h3>
+  <select [(ngModel)]="metodoPagamento" name="metodoPagamento">
+    <option value="carta">Carta di credito</option>
+  </select>
+  <div *ngIf="metodoPagamento === 'carta'">
+  <input
+  type="text"
+  inputmode="numeric"
+  pattern="[0-9 ]*"
+  placeholder="Numero carta"
+  [(ngModel)]="numeroCarta"
+  name="numeroCarta"
+  maxlength="19"
+  required
+  (input)="formattaNumeroCarta()"
+  (keydown)="soloNumeri($event)"
+  autocomplete="cc-number"
+/>
+
+<input
+  type="text"
+  inputmode="numeric"
+  pattern="[0-9/]*"
+  placeholder="Scadenza (MM/AA)"
+  [(ngModel)]="scadenza"
+  name="scadenza"
+  maxlength="5"
+  required
+  (input)="formattaScadenza()"
+  (keydown)="soloNumeri($event)"
+/>
+
+<input
+  type="text"
+  inputmode="numeric"
+  pattern="[0-9]*"
+  placeholder="CVV"
+  [(ngModel)]="cvv"
+  name="cvv"
+  maxlength="3"
+  required
+  (input)="pulisciCVV()"
+  (keydown)="soloNumeri($event)"
+  autocomplete="cc-csc"
+/>
+  </div>
+
+  <button type="submit">Conferma ordine</button>
+</form>
+</section>

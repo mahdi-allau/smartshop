@@ -1,0 +1,135 @@
+.vetrina {
+  margin: 80px auto 0 auto;
+  max-width: 1200px;
+  padding: 24px;
+}
+.vetrina-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.prodotto {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 20px;
+  width: 220px;
+  transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+.prodotto:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  border: 2px solid #080808;
+  transform: translateY(-4px) scale(1.04);
+  background: #f9f6f6;
+}
+.prodotto img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.prodotto h3 {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand {
+  display: block;
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+.price {
+  display: block;
+  font-weight: bold;
+  color: #a83232;
+  margin-bottom: 8px;
+}
+.prodotto button {
+  background: #a83232;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+.prodotto button:hover {
+  background: #353332;
+}
+.nessun-risultato {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #d32f2f;
+  margin-top: 2rem;
+}
+
+.filtri select {
+  padding: 0.5rem 1.5rem 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #050505;
+  background: #fff;
+  color: #222;
+  font-size: 1rem;
+  appearance: none;
+  outline: none;
+  box-shadow: none;
+  cursor : pointer;
+  transition: border-color 0.2s;
+  margin-right: 1rem;
+}
+
+
+.filtri label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+  color: #000000;
+}
+
+.filtri {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filtri select {
+  cursor: pointer;
+}
+
+.filtri select option {
+  cursor: pointer;
+}
+
+.filtri div {
+  display: flex;
+  align-items: center;
+}
+
+.prezzo-originale {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 0.5em;
+}
+.prezzo-scontato {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+.badge-sconto {
+  background: #d32f2f;
+  color: #fff;
+  border-radius: 4px;
+  padding: 0.1em 0.5em;
+  font-size: 0.9em;
+}
+

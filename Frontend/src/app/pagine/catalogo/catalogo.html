@@ -1,0 +1,43 @@
+<section class="vetrina">
+  <div class="titolo"><h2>Catalogo Prodotti</h2></div>
+  <div class="filtri">
+    <div>
+      <label for="categoriaSelect">Categorie:</label>
+      <!-- questa select ci permette di filtrare i prodotti per categoria -->
+      <select id="categoriaSelect" [(ngModel)]="categoriaSelezionata" (change)="filtraCategoria(categoriaSelezionata)">
+        <option *ngFor="let cat of categorie" [value]="cat.id">{{cat.name}}</option> 
+      </select>
+    </div>
+    <div>
+      <label for="brandSelect">Brand:</label>
+      <!-- questa select ci permette di filtrare i prodotti per brand -->
+      <select id="brandSelect" [(ngModel)]="brandSelezionato" (change)="filtraBrand(brandSelezionato)">
+        <option *ngFor="let b of brand" [value]="b.id">{{b.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="vetrina-list">
+  <ng-container *ngIf="prodotti.length > 0; else nessunRisultato">
+    <a
+      class="prodotto"
+      *ngFor="let prodotto of prodotti"
+      [routerLink]="['/catalogo', prodotto.id]"   
+      style="text-decoration: none; color: inherit;"
+    >
+     <img [src]="'http://localhost:3000/images/prodotti/' + prodotto.image_url" alt="{{prodotto.name}}" />
+      <h3>{{prodotto.name}}</h3>
+      <span *ngIf="prodotto.promo && (prodotto.sconto || 0) > 0">
+  <span class="prezzo-originale">{{ prodotto.price | number:'1.2-2' }}€</span>
+  <span class="prezzo-scontato">
+    {{ (prodotto.price * (1 - (prodotto.sconto || 0)/100)) | number:'1.2-2' }}€ 
+  </span>
+  <span class="badge-sconto">-{{ prodotto.sconto || 0 }}%</span>
+</span>
+      <button type="button" (click)="aggiungiAlCarrello(prodotto); $event.stopPropagation(); $event.preventDefault();">Aggiungi al carrello</button>
+    </a>
+  </ng-container>
+  <ng-template #nessunRisultato>
+    <div class="nessun-risultato">Nessun risultato trovato</div>
+  </ng-template>
+</div>
+</section>

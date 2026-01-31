@@ -1,0 +1,224 @@
+<div class="admin-container">
+  <aside class="admin-sidebar">
+    <h3>Admin</h3>
+    <ul>
+      <li [class.active]="sezione === 'utenti'" (click)="sezione = 'utenti'">
+        <span>👤</span> Gestione Utenti
+      </li>
+      <li [class.active]="sezione === 'prodotti'" (click)="sezione = 'prodotti'">
+      <span>📦</span> Gestione Prodotti
+    </li>
+    </ul>
+  </aside>
+
+  <main class="admin-main">
+    <section class="admin-card" *ngIf="sezione === 'utenti'">
+      <h2>Gestione Utenti</h2>
+      <div *ngIf="loading">Caricamento...</div>
+      <div *ngIf="errore">{{ errore }}</div>
+      <table *ngIf="!loading && utenti.length">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Ruolo</th>
+            <th>Stato</th>
+            <th>Ordini</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let utente of utenti">
+            <tr>
+              <td>{{ utente.id }}</td>
+              <td>{{ utente.email }}</td>
+              <td>{{ utente.ruolo }}</td>
+              <td>{{ utente.is_blocked ? 'Bloccato' : 'Attivo' }}</td>
+              <td>
+                {{ ordiniPerUtente[utente.id]?.length || 0 }}
+                <button (click)="toggleOrdini(utente.id)">
+                  {{ utenteMostraOrdini === utente.id ? 'Nascondi' : 'Vedi ordini' }}
+                </button>
+              </td>
+              <td>
+                <button (click)="bloccaUtente(utente.id)" [disabled]="utente.is_blocked">Blocca</button>
+                <button (click)="sbloccaUtente(utente.id)" *ngIf="utente.is_blocked">Sblocca</button>
+                <button *ngIf="utente.ruolo !== 'admin'" (click)="gestisciAdmin(utente.id, true)">Rendi Admin</button>
+                <button *ngIf="utente.ruolo === 'admin'" (click)="gestisciAdmin(utente.id, false)">Rimuovi Admin</button>
+                <button class="danger" (click)="rimuoviUtente(utente.id)">Rimuovi</button>
+              </td>
+            </tr>
+            <tr *ngIf="utenteMostraOrdini === utente.id">
+              <td colspan="6">
+                <table class="ordini-table" *ngIf="ordiniPerUtente[utente.id]?.length">
+                  <thead>
+                    <tr>
+                      <th>ID Ordine</th>
+                      <th>Data</th>
+                      <th>Totale</th>
+                      <th>Stato</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ordine of ordiniPerUtente[utente.id]">
+                        <td>{{ ordine.id }}</td>
+                        <td>{{ ordine.data || ordine.created_at }}</td>
+                        <td>{{ ordine.totale }}</td>
+                        <td>{{ ordine.stato }}</td>
+                        <td>
+                            <button (click)="apriDettaglioOrdine(ordine)">Dettaglio</button>
+                        </td>
+                        </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="ordiniPerUtente[utente.id] && !ordiniPerUtente[utente.id].length">
+                  Nessun ordine per questo utente.
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </section>
+
+    
+    <section class="admin-card" *ngIf="sezione === 'prodotti'">
+    <h2>Gestione Prodotti</h2>
+    <form #productForm="ngForm" (ngSubmit)="addProduct(productForm.value)">
+      <input name="name" ngModel placeholder="Nome" required>
+    <select name="brand_id" ngModel placeholder="Brand" required>
+      <option value="" disabled selected>Brand</option>
+        <option *ngFor="let b of brand" [ngValue]="b.id">{{ b.name }}</option>
+      </select>
+      <select name="category_id" ngModel placeholder="Categoria"  required>
+        <option value="" disabled selected>Categoria</option>
+        <option *ngFor="let c of categorie" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+      <input name="description" ngModel placeholder="Descrizione">
+       <input name="disponibilita" ngModel type="number" placeholder="Disponibilità">
+      <input name="price" ngModel type="number" step="0.01" placeholder="Prezzo" required>
+        <label style="display:inline;">
+          <button type="button" class="btn-primary" style="margin-bottom:0.5em;" (click)="triggerFileInput(fileInput)">
+            Scegli immagine
+          </button>
+          <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
+        </label>
+        <div *ngIf="selectedFile" class="image-filename">
+          {{ selectedFile.name }}
+        </div>
+      <label><input name="promo" ngModel type="checkbox" (change)="onPromoChange(productForm)"> Promo</label>
+        <select name="sconto" ngModel *ngIf="showScontoSelect" required>
+          <option [ngValue]="0" disabled selected>Seleziona sconto</option>
+          <option *ngFor="let s of [10,20,30,40,50]" [ngValue]="s">{{s}}%</option>
+        </select>
+      <label><input name="bloccato" ngModel type="checkbox"> Bloccato</label>
+      <label><input name="in_vetrina" ngModel type="checkbox"> In vetrina</label>
+      <button type="submit">Aggiungi Prodotto</button>
+    </form>
+    <table *ngIf="prodotti.length">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Brand</th>
+          <th>Categoria</th>
+          <th>Prezzo</th>
+          <th>Promo</th>
+          <th>Disponibilità</th>
+          <th>Stato</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prodotto of prodotti">
+          <td>{{ prodotto.id }}</td>
+          <td>{{ prodotto.name }}</td>
+          <td>{{ prodotto.brand_name }}</td>
+          <td>{{ prodotto.category_name }}</td>
+          <td>{{ prodotto.price | number:'1.2-2' }}</td>
+          <td>{{ prodotto.promo ? 'Sì' : 'No' }}</td>
+          <td>{{ prodotto.disponibilita }}</td>
+          <td>{{ prodotto.bloccato ? 'Bloccato' : 'Attivo' }}</td>
+          <td>
+            <button (click)="editProduct(prodotto)">Modifica</button>
+            <button class="danger" *ngIf="!prodotto.bloccato" (click)="rimuoviProdotto(prodotto.id)">Rimuovi</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- Modale modifica prodotto -->
+    <div class="modal-backdrop" *ngIf="prodottoEdit" (click)="prodottoEdit = null"></div>
+    <div class="modal" *ngIf="prodottoEdit">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h4>Modifica Prodotto #{{ prodottoEdit.id }}</h4>
+        <form #editForm="ngForm" (ngSubmit)="updateProduct(prodottoEdit.id, editForm.value)">
+          <input name="name" [(ngModel)]="prodottoEdit.name" placeholder="Nome" required>
+          <select name="brand_id" [(ngModel)]="prodottoEdit.brand_id" required>
+          <option *ngFor="let b of brand" [ngValue]="b.id">{{ b.name }}</option>
+        </select>
+        <select name="category_id" [(ngModel)]="prodottoEdit.category_id" required>
+          <option *ngFor="let c of categorie" [ngValue]="c.id">{{ c.name }}</option>
+        </select>
+          <input name="description" [(ngModel)]="prodottoEdit.description" placeholder="Descrizione">
+          <input name="price" [(ngModel)]="prodottoEdit.price" type="number" step="0.01" placeholder="Prezzo" required>
+          <input name="disponibilita" [(ngModel)]="prodottoEdit.disponibilita" type="number" placeholder="Disponibilità">
+         <label style="display:inline;">
+          <button type="button" class="btn-primary" style="margin-bottom:0.5em;" (click)="triggerFileInput(fileInput)">
+            Scegli immagine
+          </button>
+          <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
+        </label>
+        <div *ngIf="selectedFile" class="image-filename">
+          {{ selectedFile.name }}
+        </div>
+          <label>
+        <input name="promo" [(ngModel)]="prodottoEdit.promo" type="checkbox" (change)="onPromoEditChange()"> Promo
+      </label>
+      <select name="sconto" [(ngModel)]="prodottoEdit.sconto" *ngIf="showScontoEditSelect" required>
+        <option [ngValue]="0" disabled selected>Seleziona sconto</option>
+        <option *ngFor="let s of [10,20,30,40,50]" [ngValue]="s">{{s}}%</option>
+      </select>
+          <label><input name="bloccato" [(ngModel)]="prodottoEdit.bloccato" type="checkbox"> Bloccato</label>
+          <label><input name="in_vetrina" [(ngModel)]="prodottoEdit.in_vetrina" type="checkbox"> In vetrina</label>
+          <div class="modal-actions">
+            <button type="submit">Salva</button>
+            <button type="button" (click)="prodottoEdit = null">Annulla</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+    <!-- Modale dettaglio ordine -->
+    <div class="modal-backdrop" *ngIf="ordineDettaglio" (click)="ordineDettaglio = null"></div>
+<div class="modal" *ngIf="ordineDettaglio">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h4>Dettaglio Ordine #{{ ordineDettaglio.id }}</h4>
+    <p>Data: {{ ordineDettaglio.data || ordineDettaglio.created_at }}</p>
+    <p>Totale: {{ ordineDettaglio.totale }}</p>
+    <p>Stato attuale: <b>{{ ordineDettaglio.stato }}</b></p>
+    
+    <label>Nuovo stato:
+      <select [(ngModel)]="nuovoStatoOrdine">
+        <option value="spedito">Spedito</option>
+        <option value="in transito">In transito</option>
+        <option value="consegnato">Consegnato</option>
+        <option value="annullato">Annullato</option>
+      </select>
+    </label>
+    <label>Dettagli spedizione:
+  <textarea [(ngModel)]="dettagliSpedizione" [disabled]="ordineDettaglio.stato === 'annullato'" rows="2"></textarea>
+</label>
+    <div class="modal-actions">
+      <button (click)="aggiornaStatoOrdine()" [disabled]="ordineDettaglio.stato === 'annullato'">Aggiorna stato</button>
+      <button (click)="ordineDettaglio = null">Chiudi</button>
+    </div>
+    <div *ngIf="ordineDettaglio.stato === 'annullato'" style="color: #b00; margin-top: 1rem;">
+  L'ordine è annullato e non può più essere modificato.
+</div>
+  </div>
+</div>
+  </main>
+</div>

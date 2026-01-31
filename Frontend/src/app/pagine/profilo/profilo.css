@@ -1,0 +1,264 @@
+body, .dashboard-bg {
+  background: #f6f6f8;
+}
+
+.dashboard-layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  gap: 2.5rem;
+  padding: 2.5rem 1rem;
+}
+
+.sidebar {
+  min-width: 250px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 2rem 1.2rem 1.2rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  height: fit-content;
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.sidebar-welcome {
+  font-size: 1.05rem;
+  color: #222;
+  margin-bottom: 1.2rem;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  padding: 0.7em 0.8em;
+  border-radius: 8px;
+  color: #222;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sidebar nav ul li.active,
+.sidebar nav ul li:hover {
+  background: #e3f0fd;
+  color: #1976d2;
+}
+
+.sidebar-icon {
+  font-size: 1.2em;
+  width: 1.5em;
+  text-align: center;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  background: #e3f0fd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: #1976d2;
+}
+
+.profile-username {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.profile-member {
+  color: #888;
+  font-size: 0.98rem;
+}
+
+.sezione-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px #0001;
+  padding: 1.5rem 1.2rem;
+  margin-bottom: 2.2rem;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 16px;
+}
+
+ul li {
+  background: #f5f7fa;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #2a3b4c;
+  font-size: 1em;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+form input {
+  flex: 1 1 120px;
+  padding: 8px 10px;
+  border: 1px solid #cfd8dc;
+  border-radius: 5px;
+  font-size: 1em;
+  background: #f9fbfd;
+  transition: border 0.2s;
+}
+
+form input:focus {
+  border-color: #3a5a7a;
+  outline: none;
+}
+
+form button {
+  padding: 8px 18px;
+  background: #3a5a7a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button:hover {
+  background: #2a3b4c;
+}
+
+.indirizzo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+}
+
+.badge-predefinito {
+  background: #388e3c;
+  color: #fff;
+  font-size: 0.85em;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+.indirizzo-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.indirizzo-actions .elimina-btn {
+  background: #e53935;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 14px;
+  font-size: 0.98em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.indirizzo-actions .elimina-btn:hover {
+  background: #b71c1c;
+}
+
+.indirizzo-actions .modifica-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 14px;
+  font-size: 0.98em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.indirizzo-actions .modifica-btn:hover {
+  background: #0d47a1;
+}
+
+.ordini-container { margin: 2rem 0; }
+.ordine-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #0001;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+  display: block;
+}
+.ordine-card:hover { box-shadow: 0 4px 16px #0002; }
+.ordine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.stato { color: #2196f3; font-weight: bold; }
+.totale { color: #388e3c; font-weight: bold; }
+.indirizzo { margin-bottom: 1rem; color: #555; }
+.prodotti { display: flex; flex-wrap: wrap; gap: 1rem; }
+.prodotto {
+  display: flex;
+  align-items: center;
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  min-width: 220px;
+}
+.img-prodotto {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 1rem;
+}
+.nome { font-weight: 500; }

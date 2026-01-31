@@ -1,0 +1,59 @@
+.carrello-container {
+  max-width: 800px;
+  margin: 60px auto 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 24px 0 rgba(0,0,0,0.07);
+  padding: 2rem;
+  min-height: 30vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 3rem
+}
+
+.carrello-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.carrello-table th, .carrello-table td {
+  padding: 0.7rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.carrello-table img {
+  border-radius: 6px;
+}
+
+.carrello-totale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrello-totale button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.carrello-totale button:hover {
+  background: #0056b3;
+}
+
+.carrello-vuoto {
+  color: #d32f2f;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 2rem 0;
+  font-weight: 600;
+}

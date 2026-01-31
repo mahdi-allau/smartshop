@@ -1,0 +1,147 @@
+<div class="dashboard-bg">
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Menu profilo">
+      <div class="sidebar-title">Account</div>
+      <nav>
+        <ul>
+          <li (click)="toggleImpostazioniAccount()" [class.active]="mostraImpostazioniAccount">
+            <span class="sidebar-icon">⚙️</span> Impostazioni account
+          </li>
+          <li (click)="toggleListaOrdini()" [class.active]="mostraListaOrdini">
+            <span class="sidebar-icon">📦</span> I miei Ordini
+          </li>
+          <li (click)="toggleFormIndirizzo()" [class.active]="mostraFormIndirizzo">
+            <span class="sidebar-icon">🏠</span> Indirizzi
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="dashboard-main">
+      <!-- Card profilo utente -->
+      <section class="profile-card" aria-label="Profilo utente">
+        <div class="profile-avatar">
+          <span class="profile-avatar-icon">👤</span>
+        </div>
+        <div class="profile-info">
+          <h2>{{ utente.nome }} {{ utente.cognome }}</h2>
+        </div>
+      </section>
+
+      <section *ngIf="mostraImpostazioniAccount" class="sezione-box" aria-label="Impostazioni account">
+  <h3>Impostazioni account</h3>
+  <form (ngSubmit)="salvaImpostazioniAccount()" #formAccount="ngForm" class="form-account">
+  <div>
+    <label>Nome:</label>
+    <input [(ngModel)]="utente.nome" name="nome" required>
+  </div>
+  <div>
+    <label>Cognome:</label>
+    <input [(ngModel)]="utente.cognome" name="cognome" required>
+  </div>
+  <div>
+    <label>Email:</label>
+    <input [(ngModel)]="utente.email" name="email" type="email" required>
+  </div>
+  <div>
+    <label>Data di nascita:</label>
+    <input [(ngModel)]="utente.data_nascita" name="data_nascita" type="date">
+  </div>
+  <div>
+  <label>Sesso:</label>
+  <select [(ngModel)]="utente.sesso" name="sesso">
+    <option value="">Seleziona</option>
+    <option value="M">Maschio</option>
+    <option value="F">Femmina</option>
+    <option value="Altro">Altro</option>
+  </select>
+</div>
+  <div>
+  <label>Telefono:</label>
+  <input [(ngModel)]="utente.telefono" name="telefono" type="tel">
+</div>
+  <div>
+    <label>Nuova password:</label>
+    <input [(ngModel)]="utente.nuovaPassword" name="nuovaPassword" type="password">
+  </div>
+  <div>
+    <label>Conferma password:</label>
+    <input [(ngModel)]="utente.confermaPassword" name="confermaPassword" type="password">
+  </div>
+  <button type="submit">Salva modifiche</button>
+</form>
+</section>
+
+      <!-- Sezione indirizzi -->
+      <section *ngIf="mostraFormIndirizzo" class="sezione-box" aria-label="Gestione indirizzi">
+        <h3>Gestione indirizzi</h3>
+        <ul>
+          <li *ngFor="let ind of indirizzi">
+            <div class="indirizzo-info">
+              <div>
+                <strong>{{ind.nome_destinatario}}</strong>
+                <span *ngIf="ind.predefinito" class="badge-predefinito">Predefinito</span>
+              </div>
+              <div>{{ind.indirizzo}}</div>
+              <div>{{ind.cap}}, {{ind.citta}}, {{ind.paese}}</div>
+              <div>Tel: {{ind.telefono}}</div>
+            </div>
+            <div class="indirizzo-actions">
+              <button *ngIf="!ind.predefinito" (click)="impostaPredefinito(ind.id)">
+                Imposta come predefinito
+              </button>
+              <button class="modifica-btn" (click)="modificaIndirizzo(ind)">
+                Modifica
+              </button>
+              <button class="elimina-btn" (click)="eliminaIndirizzo(ind.id)">
+                Elimina
+              </button>
+            </div>
+          </li>
+        </ul>
+        <form (ngSubmit)="salvaIndirizzo()">
+          <input [(ngModel)]="nuovoIndirizzo.nome_destinatario" name="nome_destinatario" placeholder="Nome destinatario" required>
+          <input [(ngModel)]="nuovoIndirizzo.indirizzo" name="indirizzo" placeholder="Indirizzo" required>
+          <input [(ngModel)]="nuovoIndirizzo.citta" name="citta" placeholder="Città" required>
+          <input [(ngModel)]="nuovoIndirizzo.cap" name="cap" placeholder="CAP" required>
+          <input [(ngModel)]="nuovoIndirizzo.paese" name="paese" placeholder="Paese" required>
+          <input [(ngModel)]="nuovoIndirizzo.telefono" name="telefono" placeholder="Telefono" required>
+          <button type="submit">
+            {{ indirizzoDaModificare ? 'Modifica indirizzo' : 'Aggiungi indirizzo' }}
+          </button>
+          <button type="button" (click)="pulisciForm()">Pulisci form</button>
+        </form>
+      </section>
+
+      <!-- Sezione ordini -->
+      <section *ngIf="mostraListaOrdini" class="sezione-box" aria-label="I tuoi ordini">
+        <h3>I tuoi ordini</h3>
+        <div class="ordini-container">
+          <a *ngFor="let ordine of ordini" class="ordine-card" [routerLink]="['/ordine', ordine.id]" style="cursor:pointer; text-decoration:none;">
+            <div class="ordine-header">
+              <span><b>Ordine #{{ ordine.id }}</b></span>
+              <span>{{ ordine.data | date:'short' }}</span>
+              <span class="stato">{{ ordine.stato }}</span>
+              <span class="totale">Totale: {{ ordine.totale }}€</span>
+            </div>
+            <div class="indirizzo">
+              <b>Spedito a:</b> {{ ordine.indirizzo }}
+            </div>
+            <div class="prodotti">
+              <div *ngFor="let item of ordine.prodotti" class="prodotto">
+                <img [src]="item.immagine" alt="img" class="img-prodotto"/>
+                <div>
+                  <div class="nome">{{ item.nome }}</div>
+                  <div>Quantità: {{ item.quantita }}</div>
+                  <div>Prezzo: €{{ item.prezzo }}</div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="pagina-dettaglio-ordine-bg">
+  <div class="ordine-dettaglio" *ngIf="ordine">
+    <btn class="btn-back" routerLink="/profilo">
+     Torna al profilo
+    </btn>
+    <h2>Dettaglio Ordine <span class="ordine-id">#{{ ordine.id }}</span></h2>
+    <div class="ordine-info">
+        
+      <div>
+        <span class="ordine-label">Data:</span>
+        <span class="ordine-valore">{{ ordine.data | date:'dd/MM/yy, HH:mm' }}</span>
+      </div>
+      <div>
+        <span class="ordine-label">Stato spedizione:</span>
+        <span class="stato ordine-valore">{{ ordine.stato }}</span>
+      </div>
+      <div>
+        <span class="ordine-label">Dettagli spedizione:</span>
+        <span class="ordine-valore">{{ ordine.dettagli_spedizione }}</span>
+      <div>
+
+      <div class="indirizzo">
+      <span class="ordine-label">Spedito a:</span>
+      <span class="ordine-valore"> {{ ordine.indirizzo }} </span>
+      </div>
+
+      <div>
+        <span class="ordine-label">Totale:</span>
+        <span class="totale ordine-valore">€{{ ordine.totale | number:'1.2-2' }}</span>
+      </div>
+      
+    </div>
+    <h3 class="prodotti-titolo">Prodotti acquistati</h3>
+    <div class="prodotti">
+      <div *ngFor="let item of ordine.prodotti" class="prodotto">
+        <img [src]="'http://localhost:3000/images/prodotti/' + item.image_url" alt="img" class="img-prodotto"/>
+        <div class="prodotto-info">
+          <div class="nome">{{ item.name }}</div>
+          <div class="descrizione">{{ item.description }}</div>
+          <div class="dettagli-prodotto">
+            <span>Quantità: <b>{{ item.quantita }}</b></span>
+            <span>Prezzo: <b>€{{ item.prezzo | number:'1.2-2' }}</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

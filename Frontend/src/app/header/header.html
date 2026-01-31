@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <a routerLink="/home">Home</a>
+  <a routerLink="/catalogo">Catalogo</a>
+  <a routerLink="/carrello">Carrello</a>
+  <div *ngIf="!isLoggedIn" class="signin-dropdown">
+    <span class="signin-trigger" (click)="toggleSignInMenu($event)">Sign in</span>
+    <div class="signin-menu" [class.open]="showSignInMenu" (click)="$event.stopPropagation()">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+    </div>
+  </div>
+  <button *ngIf="isLoggedIn" (click)="logout()" class="logout-btn">Logout</button>
+  <a routerLink="/profilo" *ngIf="isLoggedIn" class="profile-link">Profilo</a>
+  <button *ngIf="isAdminUser" (click)="vaiAreaAdmin()" class="logout-btn">Area Admin</button>
+</nav>

@@ -1,0 +1,36 @@
+<section class="carrello-container">
+  <h2>Il tuo carrello</h2>
+  <div *ngIf="carrello.length === 0" class="carrello-vuoto">Il carrello è vuoto.</div>
+  <table *ngIf="carrello.length > 0" class="carrello-table">
+    <thead>
+      <tr>
+        <th>Prodotto</th>
+        <th>Prezzo</th>
+        <th>Quantità</th>
+        <th>Totale</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of carrello">
+        <td>
+          <img [src]="'http://localhost:3000/images/prodotti/' + item.image_url"  alt="{{item.nome}}" width="50" style="vertical-align: middle; margin-right: 8px;">
+          {{item.nome}}
+        </td>
+        <td>{{ item.prezzoFinale !== undefined ? item.prezzoFinale : item.prezzo }}€</td>
+        <td>
+          <input type="number" [value]="item.quantita" min="1" [max]="item.disponibilita"
+            (change)="aggiornaQuantita(item.prodottoId, $event.target.valueAsNumber)">
+        </td>
+        <td>{{ (item.prezzoFinale !== undefined ? item.prezzoFinale : item.prezzo) * item.quantita }}€</td>
+        <td>
+          <button (click)="rimuovi(item)">Rimuovi</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="carrello.length > 0" class="carrello-totale">
+    <strong>Totale: €{{totale}}</strong>
+    <button (click)="vaiAlCheckout()">Procedi al checkout</button>
+  </div>
+</section>

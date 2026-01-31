@@ -1,0 +1,142 @@
+.ordine-dettaglio {
+  max-width: 700px;
+  margin: 2.5rem auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #0002;
+  padding: 2.2rem 2.5rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.ordine-dettaglio h2 {
+  margin-bottom: 1.5rem;
+  color: #1976d2;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.ordine-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.08rem;
+}
+
+.ordine-info > div {
+  min-width: 180px;
+}
+
+.ordine-label {
+  color: #888;
+  font-weight: 500;
+  margin-right: 0.3em;
+  display: inline-block;
+  min-width: 110px;
+}
+
+.ordine-valore {
+  color: #222;
+  font-weight: 500;
+}
+
+.stato {
+  color: #2196f3;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.totale {
+  color: #388e3c;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.indirizzo {
+  white-space: normal;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  overflow-x: auto;
+}
+
+.prodotti-titolo {
+  margin-top: 2rem;
+  color: #1976d2;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.prodotti {
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.prodotto {
+  display: flex;
+  align-items: flex-start;
+  background: #f7f7f7;
+  border-radius: 10px;
+  padding: 0.8rem 1.2rem;
+  box-shadow: 0 1px 4px #0001;
+  transition: box-shadow 0.2s;
+}
+
+.prodotto:hover {
+  box-shadow: 0 4px 16px #0002;
+}
+
+.img-prodotto {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1.2rem;
+  background: #e3e3e3;
+}
+
+.prodotto-info, .prodotto > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.nome {
+  font-weight: 600;
+  font-size: 1.13rem;
+  color: #222;
+}
+
+.descrizione {
+  color: #666;
+  font-size: 0.98rem;
+  margin-bottom: 0.2rem;
+}
+
+.dettagli-prodotto {
+  display: flex;
+  gap: 2.5rem;
+  font-size: 1.05rem;
+  margin-top: 0.2rem;
+}
+
+.btn-back {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 4px #0001;
+}
+.btn-back:hover {
+  background: #125ea7;
+}
