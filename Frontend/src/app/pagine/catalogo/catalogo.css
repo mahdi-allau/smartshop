@@ -1,76 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
 .vetrina {
   margin: 80px auto 0 auto;
   max-width: 1200px;
   padding: 24px;
 }
-.vetrina-list {
+
+/* TITOLO */
+.vetrina h2,
+.titolo {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+/* FILTRI */
+.filtri {
   display: flex;
-  flex-wrap: wrap;
   gap: 2rem;
-  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
-.prodotto {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  padding: 20px;
-  width: 220px;
-  transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
-  border: 2px solid transparent;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-}
-.prodotto:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-  border: 2px solid #080808;
-  transform: translateY(-4px) scale(1.04);
-  background: #f9f6f6;
-}
-.prodotto img {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
-.prodotto h3 {
-  min-height: 40px;
+
+.filtri div {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
-.brand {
-  display: block;
-  color: #888;
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-.price {
-  display: block;
-  font-weight: bold;
-  color: #a83232;
-  margin-bottom: 8px;
-}
-.prodotto button {
-  background: #a83232;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
-}
-.prodotto button:hover {
-  background: #353332;
-}
-.nessun-risultato {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #d32f2f;
-  margin-top: 2rem;
+
+.filtri label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+  color: #000000;
+  font-size: 1rem;
 }
 
 .filtri select {
@@ -80,51 +43,108 @@
   background: #fff;
   color: #222;
   font-size: 1rem;
-  appearance: none;
   outline: none;
-  box-shadow: none;
-  cursor : pointer;
+  cursor: pointer;
   transition: border-color 0.2s;
-  margin-right: 1rem;
 }
 
-
-.filtri label {
-  font-weight: 500;
-  margin-right: 0.5rem;
-  color: #000000;
+.filtri select:hover {
+  border-color: #a83232;
 }
 
-.filtri {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  margin-bottom: 1.5rem;
+/* LISTA PRODOTTI */
+.vetrina-list {
+  display: grid;
+  grid-template-columns: repeat(4, 240px);
+  gap: 40px;
+  justify-content: center;
+  align-items: stretch;
 }
 
-.filtri select {
+/* CARD PRODOTTO */
+.prodotto {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 16px;
+  width: 240px;
+  height: 300px;
+  border: 2px solid transparent;
   cursor: pointer;
-}
+  text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s, border 0.2s, background 0.2s;
 
-.filtri select option {
-  cursor: pointer;
-}
-
-.filtri div {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
+/* EFFETTO PASSAGGIO MOUSE */
+.prodotto:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  border: 2px solid #080808;
+  transform: translateY(-4px) scale(1.02);
+  background: #f9f6f6;
+}
+
+/* IMMAGINE PRODOTTO */
+.prodotto img {
+  width: 180px;
+  height: 110px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* NOME PRODOTTO */
+.prodotto h3 {
+  height: 50px;
+  font-size: 15px;
+  line-height: 1.2;
+  margin: 8px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* BRAND */
+.brand {
+  display: block;
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+/* PREZZO */
+.price {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  font-weight: bold;
+  color: #a83232;
+  margin-bottom: 10px;
+}
+
+/* PREZZO ORIGINALE BARRATO */
 .prezzo-originale {
   text-decoration: line-through;
   color: #888;
   margin-right: 0.5em;
 }
+
+/* PREZZO SCONTATO */
 .prezzo-scontato {
   color: #d32f2f;
   font-weight: bold;
   margin-right: 0.5em;
 }
+
+/* BADGE SCONTO */
 .badge-sconto {
   background: #d32f2f;
   color: #fff;
@@ -133,3 +153,63 @@
   font-size: 0.9em;
 }
 
+/* BOTTONE */
+.prodotto button {
+  margin-top: auto;
+  background: #a83232;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+/* HOVER BOTTONE */
+.prodotto button:hover {
+  background: #353332;
+}
+
+/* NESSUN RISULTATO */
+.nessun-risultato {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #d32f2f;
+  margin-top: 2rem;
+}
+
+/* TABLET */
+@media (max-width: 1100px) {
+  .vetrina-list {
+    grid-template-columns: repeat(3, 240px);
+  }
+}
+
+/* SCHERMI MEDI */
+@media (max-width: 820px) {
+  .vetrina-list {
+    grid-template-columns: repeat(2, 240px);
+  }
+
+  .filtri {
+    gap: 1rem;
+  }
+}
+
+/* TELEFONO */
+@media (max-width: 560px) {
+  .vetrina {
+    padding: 16px;
+  }
+
+  .vetrina-list {
+    grid-template-columns: repeat(1, 240px);
+  }
+
+  .filtri {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export class IndirizziService {
 
   constructor(private http: HttpClient) {}
-
+//observable è un tipo di dato per 
   getIndirizziUtente(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });

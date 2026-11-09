@@ -1,5 +1,5 @@
 // filepath: Backend/routes/adminRoutes.js
-const express = require('express');
+const express = require('express');//importa il modulo express per creare un router
 const router = express.Router();
 const { verifyToken, isAdmin } = require('../middleware/authMiddleware');
 const adminController = require('../controller/adminController');

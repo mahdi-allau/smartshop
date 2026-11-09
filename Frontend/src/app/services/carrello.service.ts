@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'; //questo e un servizio 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root' })//Angular crea una sola istanza di questo servizio per tutta l’app.
 export class CarrelloService {
   constructor(private http: HttpClient) {}
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
-  }
+  }//!! serve per convertire il valore in booleano
 
   addToCart(item: any, quantita: number = 1) {
     if (this.isLoggedIn()) {

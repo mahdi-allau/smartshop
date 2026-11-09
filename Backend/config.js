@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config();//require dotenv per caricare le variabili d'ambiente dal file .env
 
 const config={
 	db:{

@@ -131,7 +131,7 @@ const params = [
   }
 
  
-
+//prende tutte le categorie, marche e prodotti
   async getAllCategories() {
   const connection = await getConnection();
   const sql = 'SELECT id, name FROM category';

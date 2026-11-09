@@ -35,7 +35,7 @@ exports.removeItem = async (req, res) => {
   try {
     const userId = req.user.id;
     const prodottoId = parseInt(req.params.prodottoId, 10);
-    if (!userId || isNaN(prodottoId)) {
+    if (!userId || isNaN(prodottoId)) { //isNaN controlla se il prodottoId non è un numero
       return res.status(400).json({ error: 'Parametri mancanti o non validi' });
     }
     await cartDAO.removeCartItem(userId, prodottoId);

@@ -1,7 +1,7 @@
 const pgp = require('pg-promise')();
 const config = require('../config');
 
-const db = pgp(config.db);
+const db = pgp(config.db);//pgp è un oggetto che rappresenta la connessione al database, 
 
 async function getConnection() {
     try {
