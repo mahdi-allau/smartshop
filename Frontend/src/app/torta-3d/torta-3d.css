@@ -1,0 +1,83 @@
+.torta-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.torta-titolo {
+  margin: 0;
+  color: #2a4d7a;
+}
+
+.torta-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.fetta {
+  cursor: pointer;
+  stroke: #fff;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.fetta:hover {
+  filter: brightness(1.08);
+}
+
+.torta-legenda {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.torta-legenda li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  cursor: default;
+}
+
+.torta-legenda li.attiva {
+  background: #e6f0fa;
+}
+
+.pallino {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.nome {
+  flex: 1;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.valore {
+  color: #666;
+  font-variant-numeric: tabular-nums;
+}
+
+.torta-slider {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.torta-vuoto {
+  color: #888;
+}

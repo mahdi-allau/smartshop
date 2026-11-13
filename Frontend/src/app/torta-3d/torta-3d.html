@@ -1,0 +1,61 @@
+<div class="torta-wrap">
+  @if (titolo()) {
+    <h3 class="torta-titolo">{{ titolo() }}</h3>
+  }
+
+  @if (!fette().length) {
+    <p class="torta-vuoto">Nessun dato da mostrare.</p>
+  } @else {
+    <svg
+      class="torta-svg"
+      [attr.viewBox]="'0 0 ' + larghezza + ' ' + altezza"
+      role="img"
+      [attr.aria-label]="titolo() || 'Grafico a torta 3D'"
+    >
+      <!-- ombra sotto la torta -->
+      <ellipse cx="230" [attr.cy]="140 + 34" rx="165" ry="30" fill="#0002" />
+
+      <!-- pareti laterali -->
+      @for (f of fette(); track f.label; let i = $index) {
+        @if (f.lato) {
+          <path
+            [attr.d]="f.lato"
+            [attr.fill]="f.coloreLato"
+            [attr.transform]="attiva() === i ? 'translate(' + f.dx + ' ' + f.dy + ')' : null"
+          />
+        }
+      }
+
+      <!-- facce superiori -->
+      @for (f of fette(); track f.label; let i = $index) {
+        <path
+          class="fetta"
+          [attr.d]="f.top"
+          [attr.fill]="f.colore"
+          [attr.transform]="attiva() === i ? 'translate(' + f.dx + ' ' + f.dy + ')' : null"
+          (mouseenter)="attiva.set(i)"
+          (mouseleave)="attiva.set(null)"
+        />
+      }
+    </svg>
+
+    <ul class="torta-legenda">
+      @for (f of fette(); track f.label; let i = $index) {
+        <li
+          [class.attiva]="attiva() === i"
+          (mouseenter)="attiva.set(i)"
+          (mouseleave)="attiva.set(null)"
+        >
+          <span class="pallino" [style.background]="f.colore"></span>
+          <span class="nome">{{ f.label }}</span>
+          <span class="valore">{{ f.valore }} · {{ f.percentuale.toFixed(1) }}%</span>
+        </li>
+      }
+    </ul>
+
+    <label class="torta-slider">
+      Inclinazione
+      <input type="range" min="20" max="75" [value]="inclinazione()" (input)="cambiaInclinazione($event)" />
+    </label>
+  }
+</div>

@@ -144,3 +144,14 @@ button.danger:hover {
 
 
 
+
+.stat-switch {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.stat-switch button.active {
+  background: #2a4d7a;
+  color: #fff;
+}

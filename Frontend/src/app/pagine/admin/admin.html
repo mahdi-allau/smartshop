@@ -8,6 +8,9 @@
       <li [class.active]="sezione === 'prodotti'" (click)="sezione = 'prodotti'">
       <span>📦</span> Gestione Prodotti
     </li>
+      <li [class.active]="sezione === 'statistiche'" (click)="sezione = 'statistiche'">
+        <span>🥧</span> Statistiche
+      </li>
     </ul>
   </aside>
 
@@ -81,7 +84,18 @@
       </table>
     </section>
 
-    
+    <section class="admin-card" *ngIf="sezione === 'statistiche'">
+      <h2>Statistiche</h2>
+      <div class="stat-switch">
+        <button [class.active]="statTorta === 'ordini'" (click)="statTorta = 'ordini'">Ordini per stato</button>
+        <button [class.active]="statTorta === 'prodotti'" (click)="statTorta = 'prodotti'">Prodotti per categoria</button>
+      </div>
+      <app-torta-3d
+        [dati]="datiTorta"
+        [titolo]="statTorta === 'ordini' ? 'Ordini per stato' : 'Prodotti per categoria'"
+      />
+    </section>
+
     <section class="admin-card" *ngIf="sezione === 'prodotti'">
     <h2>Gestione Prodotti</h2>
     <form #productForm="ngForm" (ngSubmit)="addProduct(productForm.value)">

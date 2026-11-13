@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Subscription, interval } from 'rxjs';
+import { Torta3d, FettaTorta } from '../../torta-3d/torta-3d';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, Torta3d],
   templateUrl: './admin.html',
   styleUrls: ['./admin.css']
 })
@@ -163,6 +164,25 @@ export class Admin implements OnInit, OnDestroy {
         next: () => this.caricaProdotti()
       });
     }
+  }
+
+  statTorta: 'ordini' | 'prodotti' = 'ordini';
+
+  /** Dati per la torta 3D: ordini raggruppati per stato oppure prodotti per categoria. */
+  get datiTorta(): FettaTorta[] {
+    const conteggi = new Map<string, number>();
+    if (this.statTorta === 'ordini') {
+      Object.values(this.ordiniPerUtente).flat().forEach(o => {
+        const k = o.stato || 'sconosciuto';
+        conteggi.set(k, (conteggi.get(k) ?? 0) + 1);
+      });
+    } else {
+      this.prodotti.forEach(p => {
+        const k = p.category_name || 'senza categoria';
+        conteggi.set(k, (conteggi.get(k) ?? 0) + 1);
+      });
+    }
+    return [...conteggi].map(([label, valore]) => ({ label, valore }));
   }
 
   getAuthHeaders() {
